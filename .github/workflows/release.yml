@@ -53,6 +53,3 @@ jobs:
           tags: |
             ghcr.io/${{ env.REPOSITORY_OWNER_LOWER }}/${{ github.event.repository.name }}:latest
             ghcr.io/${{ env.REPOSITORY_OWNER_LOWER }}/${{ github.event.repository.name }}:${{ env.VERSION_TAG }}
-
-      - name: Deploy (if needed)
-        run: echo "Deploy step can be customized or automated here"

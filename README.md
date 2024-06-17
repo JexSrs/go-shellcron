@@ -34,20 +34,20 @@ After these setup steps, the program will be ready for use.
 
 ## Docker
 
-### Using Docker command
+### Using Docker Command
 
 Before using Docker, ensure Docker is installed on your system. Visit [Docker's official installation guide](https://docs.docker.com/get-docker/) for help with the installation.
 
-1. **Build the Docker Image**:
-   From within the project directory (where the `Dockerfile` is located), build your Docker image:
+1. **Pull the Docker Image**:
+   Pull the latest image of your project directly from GitHub Container Registry:
    ```bash
-   docker build -t go-shellcron .
+   docker pull ghcr.io/jexsrs/go-shellcron:latest
    ```
 
 2. **Run your Docker Container**:
-   You can run your Docker container with the following command:
+   Run the Docker container using the image pulled from GHCR with the following command:
    ```bash
-   docker run --name go-shellcron -v $(pwd)/scripts:/scripts -d go-shellcron
+   docker run --name go-shellcron -v $(pwd)/scripts:/scripts -d ghcr.io/jexsrs/go-shellcron:latest
    ```
 
 ### Using Docker Compose
@@ -55,26 +55,23 @@ Before using Docker, ensure Docker is installed on your system. Visit [Docker's 
 For an even simpler setup or deployment, you can utilize Docker Compose.
 
 1. **Create a `docker-compose.yml` file**:
-   Make sure you have a `docker-compose.yml` file in the root of your project with the following content:
+   Make sure you have a `docker-compose.yml` file in the root of your project with the following content. Note that the `build` option is replaced by directly using the image from GHCR:
    ```yaml
+   version: '3.8'
    services:
      go-shellcron:
-       container_name: go-shellcron
+       image: ghcr.io/jexsrs/go-shellcron:latest
        restart: always
-       image: go-shellcron
-       build:
-         context: ./
-         dockerfile: Dockerfile
-       env_file: ".env"
        volumes:
          - ./scripts:/scripts
    ```
 
 2. **Run using Docker Compose**:
-   If you wish to run the services in the background (detached mode), use:
+   To start your services using Docker Compose, run:
    ```bash
-   docker-compose up -d --build
+   docker-compose up -d
    ```
+
    
 ## Script structure
 Here is a sample script to be processed by this scheduler:
