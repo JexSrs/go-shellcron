@@ -57,7 +57,6 @@ For an even simpler setup or deployment, you can utilize Docker Compose.
 1. **Create a `docker-compose.yml` file**:
    Make sure you have a `docker-compose.yml` file in the root of your project with the following content. Note that the `build` option is replaced by directly using the image from GHCR:
    ```yaml
-   version: '3.8'
    services:
      go-shellcron:
        image: ghcr.io/jexsrs/go-shellcron:latest
@@ -77,7 +76,7 @@ For an even simpler setup or deployment, you can utilize Docker Compose.
 Here is a sample script to be processed by this scheduler:
 ```shell
 #!/bin/bash
-# CRON: */10 * * * *
+#CRON: */10 * * * *
 
 # Echo current date and time
 echo "Current date and time:"
