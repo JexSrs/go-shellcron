@@ -16,13 +16,18 @@ jobs:
         uses: actions/checkout@v2
       - name: Convert repository owner to lowercase
         run: echo "REPOSITORY_OWNER_LOWER=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+      - name: Extract version tag
+        id: get_version
+        run: |
+          VERSION_TAG="${GITHUB_REF#refs/tags/}"
+          echo "VERSION_TAG=${VERSION_TAG}" >> $GITHUB_ENV
 
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         with:
           tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          release_name: Release ${{ env.VERSION_TAG }}
           body: This is an automated release, wait for the change log to be updated
           draft: false
           prerelease: false
@@ -45,7 +50,7 @@ jobs:
           push: true
           tags: |
             ghcr.io/${{ env.REPOSITORY_OWNER_LOWER }}/${{ github.event.repository.name }}:latest
-            ghcr.io/${{ env.REPOSITORY_OWNER_LOWER }}/${{ github.event.repository.name }}:${{ github.ref }}
+            ghcr.io/${{ env.REPOSITORY_OWNER_LOWER }}/${{ github.event.repository.name }}:${{ env.VERSION_TAG }}
 
       - name: Deploy (if needed)
         run: echo "Deploy step can be customized or automated here"
