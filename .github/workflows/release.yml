@@ -7,6 +7,8 @@ on:
 
 permissions:
   contents: write
+  packages: write
+  actions: write
 
 jobs:
   new-version:
