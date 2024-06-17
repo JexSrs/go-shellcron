@@ -42,8 +42,8 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/app:latest
-            ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/app:${{ github.ref }}
+            ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:latest
+            ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ github.ref }}
 
       - name: Deploy (if needed)
         run: echo "Deploy step can be customized or automated here"
