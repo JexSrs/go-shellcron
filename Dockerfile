@@ -11,9 +11,9 @@ COPY . .
 
 # Compile
 RUN mkdir bin
-RUN go build -o bin main/src/...
+RUN go build -o bin ./...
 
 EXPOSE 3000
 
 # Run
-CMD [ "./bin/src", "/scripts" ]
+CMD [ "./bin/go-shellcron", "/scripts" ]
