@@ -1,0 +1,10 @@
+services:
+  go-shellcron:
+    container_name: go-shellcron
+    restart: "always"
+    image: go-shellcron
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./scripts:/scripts
