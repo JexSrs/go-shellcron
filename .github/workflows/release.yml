@@ -43,7 +43,7 @@ jobs:
           push: true
           tags: |
             ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/app:latest
-            ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/app:${{ steps.getand.trace_version.outputs.VERSION }}
+            ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/app:${{ github.ref }}
 
       - name: Deploy (if needed)
         run: echo "Deploy step can be customized or automated here"
