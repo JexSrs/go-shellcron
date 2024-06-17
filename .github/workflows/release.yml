@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Convert repository owner to lowercase
+        run: echo "REPOSITORY_OWNER_LOWER=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
       - name: Create Release
         id: create_release
@@ -42,8 +44,8 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:latest
-            ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ github.ref }}
+            ghcr.io/${{ env.REPOSITORY_OWNER_LOWER }}/${{ github.event.repository.name }}:latest
+            ghcr.io/${{ env.REPOSITORY_OWNER_LOWER }}/${{ github.event.repository.name }}:${{ github.ref }}
 
       - name: Deploy (if needed)
         run: echo "Deploy step can be customized or automated here"
