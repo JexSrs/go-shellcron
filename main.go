@@ -87,10 +87,12 @@ func parseCronLine(filePath string) (string, error) {
 
 func runScript(scriptPath string) {
 	cmd := exec.Command("/bin/sh", scriptPath)
-	output, err := cmd.CombinedOutput()
-	if err != nil {
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+
+	if err := cmd.Run(); err != nil {
 		log.Printf("Error running script %s: %s", scriptPath, err)
 		return
 	}
-	log.Printf("Output from %s: %s", scriptPath, output)
+	log.Printf("Finished running script: %s", scriptPath)
 }
